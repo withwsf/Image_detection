@@ -25,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(this->dock_object->ui.ScoreSpinBox,SIGNAL(valueChanged(double)),this,SLOT(reset_score_threshold(double)));
     QObject::connect(this->dock_object->ui.NMSSpinBox_2,SIGNAL(valueChanged(double)),this,SLOT(reset_nms_threshold(double)));
     QObject::connect(this,SIGNAL(detection_finshed()),this,SLOT(show_detected()));
-    std::string prototxt="/home/wsf/store/caffes/faster/py-faster-rcnn/output/cwll_faster_rcnn_test.pt";
-    std::string caffemodel="/home/wsf/store/caffes/faster/py-faster-rcnn/output/laji_ZF_faster_rcnn_final.caffemodel";
+    std::string prototxt="/home/wsf/store/caffes/faster/py-faster-rcnn/output/faster_rcnn_test_four_class.pt";
+    std::string caffemodel="/home/wsf/store/caffes/faster/py-faster-rcnn/output/ZF_faster_rcnn_final_four_classes.caffemodel";
     this->detector=std::make_shared<image_detection>(prototxt,caffe::TEST,caffemodel);
 
 
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
                       "bottle", "bus", "car", "cat", "chair",
                       "cow", "diningtable", "dog", "horse",
                       "motorbike", "person", "pottedplant",
-                      "sheep", "sofa", "train", "tvmonitor","garbage"};
+                      "sheep", "sofa", "train", "tvmonitor","垃圾","标语","井盖","游商"};
 
     this->cls_inx_name.reset(new std::vector<std::string>(classNames));
 }
@@ -100,19 +100,21 @@ void MainWindow::show_detected(){
     QPen outlinepen(Qt::red);
     QBrush brush(Qt::NoBrush);
     for(auto const& vec:this->det_ret){
-      //if(vec[5]==21){
+      if(vec[5]>=21){
      QGraphicsRectItem* rectItem=this->scene->addRect(vec[0],vec[1],vec[2]-vec[0],vec[3]-vec[1],outlinepen,brush);
      std::string name_str=(*this->cls_inx_name)[vec[5]];
+
      std::ostringstream ss;
      ss<<vec[4];
      std::string pro_str=ss.str();
      QGraphicsTextItem* text=this->scene->addText(QString::fromStdString(name_str),QFont(QString::fromStdString(std::string("Times")),30));
-     QGraphicsTextItem* text2=this->scene->addText(QString::fromStdString(pro_str),QFont(QString::fromStdString(std::string("Times")),20));
-     text->setPos(QPoint(vec[0],vec[1]));
+     QGraphicsTextItem* text2=this->scene->addText(QString::fromStdString(pro_str),QFont(QString::fromStdString(std::string("Times")),15));
+     text->setPos(QPoint(vec[0],vec[1]-60));
      text->setDefaultTextColor(QColor(255,0,0));
-     text2->setPos(QPoint(vec[0],vec[1]+45));
+     text2->setPos(QPoint(vec[0],vec[1]-25));
      text2->setDefaultTextColor(QColor(255,0,0));
      cout<<"draw a rect"<<endl;
-      //}
+      }
+
     }
 }

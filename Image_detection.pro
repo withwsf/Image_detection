@@ -15,12 +15,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     image_detection.cpp \
     nms.cpp \
-    dockwidget.cpp
+    dockwidget.cpp \
+    detector_warpper.cpp
 
 HEADERS  += mainwindow.h \
         image_detection.h \
     nms.h \
-    dockwidget.h
+    dockwidget.h \
+    detector_warpper.h
 
 FORMS    += mainwindow.ui \
     dockwidget.ui

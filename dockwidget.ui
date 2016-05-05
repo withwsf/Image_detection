@@ -12,26 +12,26 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>125</width>
-    <height>221</height>
+    <width>138</width>
+    <height>364</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>DockWidget</string>
+   <string>参数设置</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>Open</string>
+       <string>打开图片</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QLabel" name="Scorelabel">
       <property name="text">
-       <string>Score threshold</string>
+       <string>概率阈值</string>
       </property>
      </widget>
     </item>
@@ -54,7 +54,7 @@
     <item>
      <widget class="QLabel" name="NMSlabel">
       <property name="text">
-       <string>NMS threshold</string>
+       <string>非极大值抑制阈值</string>
       </property>
      </widget>
     </item>
@@ -74,7 +74,54 @@
     <item>
      <widget class="QPushButton" name="DetectpushButton">
       <property name="text">
-       <string>Detect</string>
+       <string>检测</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="text">
+       <string>井盖</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBox_2">
+      <property name="text">
+       <string>横幅</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBox_3">
+      <property name="text">
+       <string>垃圾</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBox_4">
+      <property name="text">
+       <string>游商</string>
       </property>
      </widget>
     </item>

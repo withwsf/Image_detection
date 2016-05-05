@@ -63,11 +63,12 @@ void image_detection::init(){
     this->_num_channels=input_layer->channels();
     this->_input_geometry=cv::Size(input_layer->width(),input_layer->height());
     vector<string> classNames{"__background__",
-                      "aeroplane", "bicycle", "bird", "boat",
-                      "bottle", "bus", "car", "cat", "chair",
-                      "cow", "diningtable", "dog", "horse",
-                      "motorbike", "person", "pottedplant",
-                      "sheep", "sofa", "train", "tvmonitor","garbage"};
+                              "aeroplane", "bicycle", "bird", "boat",
+                              "bottle", "bus", "car", "cat", "chair",
+                              "cow", "diningtable", "dog", "horse",
+                              "motorbike", "person", "pottedplant",
+                              "sheep", "sofa", "train", "tvmonitor","garbage",
+                              "biaoyu","well","youshang"};
 
     this->class_index_name.reset(new std::vector<std::string>(classNames));
 
@@ -200,7 +201,7 @@ vector<vector<vector<float>>> image_detection::get_score_tranfomedBoundingBox(co
 if(delta->shape()[0]!=rois->shape()[0]||score->shape()[0]!=rois->shape()[0])
     raise(0);
 
-
+int num_of_classe=score->shape()[1];
 int num_of_roi=rois->shape()[0];
 vector<vector<float>> _rois;
 vector<vector<float>> _delta_correct;
@@ -215,13 +216,13 @@ for(int i=0;i<num_of_roi;++i){
     }
     _rois.push_back(temp1);
 
-    for(int k=0;k<22;++k){
-        temp2.push_back(score->cpu_data()[i*22+k]);
+    for(int k=0;k<25;++k){
+        temp2.push_back(score->cpu_data()[i*num_of_classe+k]);
     }
     _score.push_back(temp2);
 
-    for(int l=0;l<88;++l){
-        temp3.push_back(delta->cpu_data()[i*88+l]);
+    for(int l=0;l<100;++l){
+        temp3.push_back(delta->cpu_data()[i*num_of_classe*4+l]);
     }
     _delta_correct.push_back(temp3);
 }
