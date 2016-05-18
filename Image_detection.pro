@@ -27,14 +27,14 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     dockwidget.ui
 
-INCLUDEPATH += /home/wsf/store/caffes/faster/py-faster-rcnn/caffe-fast-rcnn/include \
+INCLUDEPATH += /home/vcc/caffe_depen/caffe-fast-rcnn/include \
                /usr/include/opencv /usr/include/opencv2 \
 
 
 
-LIBS += -L/home/wsf/store/caffes/faster_rcnn_for_cpu_only/py-faster-rcnn/caffe-fast-rcnn/.build_release/lib -lcaffe
+LIBS += -L/home/vcc/caffe_depen/lib -lcaffe -lcblas -latlas
 
-LIBS+= -L/usr/local/lib  -lglog -lgflags -lprotobuf -lleveldb -lsnappy -llmdb -lboost_system -lhdf5_hl -lhdf5 -lm -lopencv_core -lopencv_highgui -lopencv_imgproc -lboost_thread -lstdc++  -lcblas -latlas  -lprotobuf
+LIBS+= -L/usr/local/lib  -lglog -lgflags -lprotobuf -lleveldb -lsnappy -llmdb -lboost_system -lhdf5_hl -lhdf5 -lm -lopencv_core -lopencv_highgui -lopencv_imgproc -lboost_thread -lstdc++  -lprotobuf
 INCLUDEPATH +=/usr/include/python2.7/
 INCLUDEPATH +=/usr/include/
 LIBS += -lboost_python -lpython2.7 -lboost_system

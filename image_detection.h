@@ -25,7 +25,8 @@ public:
        _phase(phase),
        _pathToPretrain(pathToPreTrained),
        import_path(false),
-       QObject(NULL)
+       QObject(NULL),
+       rescale_baseline(600)
    {
        init();
    }
@@ -33,6 +34,7 @@ public:
    void setMean(std::vector<float> mean);
    std::shared_ptr<caffe::Net<float>> getNet();
    caffe::Phase getPhase();
+   void reset_scale_baseline(float new_baseline);
    ~image_detection(){}
 private:
     void init();
@@ -45,8 +47,6 @@ private:
     std::vector<std::vector<std::vector<float>>> get_score_tranfomedBoundingBox(const caffe::Blob<float>* rois,const caffe::Blob<float>* delta,const caffe::Blob<float>* score);
     std::vector<std::vector<float>> filterScore(const std::vector<std::vector<float>>& score,const std::vector<std::vector<float>>& corrd,float threshold,float nms_threshold);
 private:
-
-
     std::shared_ptr<caffe::Net<float>> _net;
     std::string _pathToProtoTxt;
     caffe::Phase _phase;
@@ -55,8 +55,8 @@ private:
     int _num_channels;//num of input channel
     cv::Size _input_geometry;//size of input image
     float scale;
-    std::shared_ptr<std::vector<std::string>> class_index_name;
     std::vector<float> _mean;
+    float rescale_baseline;
 
 
 };

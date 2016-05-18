@@ -62,15 +62,6 @@ void image_detection::init(){
     caffe::Blob<float> *input_layer=_net->input_blobs()[0];
     this->_num_channels=input_layer->channels();
     this->_input_geometry=cv::Size(input_layer->width(),input_layer->height());
-    vector<string> classNames{"__background__",
-                              "aeroplane", "bicycle", "bird", "boat",
-                              "bottle", "bus", "car", "cat", "chair",
-                              "cow", "diningtable", "dog", "horse",
-                              "motorbike", "person", "pottedplant",
-                              "sheep", "sofa", "train", "tvmonitor","garbage",
-                              "biaoyu","well","youshang"};
-
-    this->class_index_name.reset(new std::vector<std::string>(classNames));
 
 }
 
@@ -116,15 +107,15 @@ cv::Mat image_detection::preprocessImg(const cv::Mat& img){
     int height=sample.rows;
     int width=sample.cols;
     if(width<height){
-        this->scale=float(600)/float(width);
-        height=int(float(height)/float(width)*600);
-        width=600;
+        this->scale=float(rescale_baseline)/float(width);
+        height=int(float(height)/float(width)*rescale_baseline);
+        width=rescale_baseline;
 
     }
     else{
-        this->scale=float(600)/float(height);
-        width=int(float(width)/float(height)*600);
-        height=600;
+        this->scale=float(rescale_baseline)/float(height);
+        width=int(float(width)/float(height)*rescale_baseline);
+        height=rescale_baseline;
 
     }
     cv::Size new_size(width,height);
@@ -306,4 +297,8 @@ vector<vector<float>>  image_detection::filterScore(const std::vector<std::vecto
         }
     }
     return ret;
+}
+
+void image_detection::reset_scale_baseline(float new_baseline){
+    this->rescale_baseline=new_baseline;
 }
